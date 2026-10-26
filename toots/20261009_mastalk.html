@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>20261009</title>
+  <script id="enty-theme-boot">
+    (function () {
+      var root = document.documentElement;
+      function readable(hex) {
+        var f = function (i) {
+          var v = parseInt(hex.substr(i, 2), 16) / 255;
+          return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+        };
+        var L = 0.2126 * f(1) + 0.7152 * f(3) + 0.0722 * f(5);
+        return 1.05 / (L + 0.05) >= (L + 0.05) / 0.0567 ? "#ffffff" : "#0d141d";
+      }
+      try {
+        var hash = (location.hash.match(/theme=([^&]+)/) || [])[1];
+        var raw = hash
+          ? atob(decodeURIComponent(hash))
+          : localStorage.getItem("enty-theme") || "{}";
+        var state = JSON.parse(raw) || {};
+        var mode = state.mode || "auto";
+        if (mode === "auto") {
+          mode = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        root.setAttribute("data-theme", mode);
+        var custom = (state.custom || {})[mode] || {};
+        for (var key in custom) {
+          if (!/^#[0-9a-f]{6}$/i.test(custom[key])) continue;
+          root.style.setProperty("--accent-" + key, custom[key]);
+          if (key === "char1" || key === "char2") {
+            root.style.setProperty("--on-" + key, readable(custom[key]));
+          }
+        }
+      } catch (e) {
+      }
+      try {
+        var saved = JSON.parse(localStorage.getItem("enty-avatars") || "{}");
+        var rules = "";
+        var accounts = {"char1":"@shuu","char2":"@RU_22"};
+        for (var name in accounts) {
+          var gen = root.getAttribute("data-gen-" + name);
+          var url = gen && saved[name + ":" + gen];
+          if (!url || url.slice(0, 11) !== "data:image/") continue;
+          var at = '.ttobot-status[data-account="' + accounts[name] + '"] .ttobot-avatar';
+          rules += at + '{background-image:url("' + url + '");background-size:cover;background-position:center}';
+          rules += at + " img{visibility:hidden}";
+        }
+        if (rules) {
+          var style = document.createElement("style");
+          style.id = "enty-avatar-style";
+          style.textContent = rules;
+          document.head.appendChild(style);
+        }
+      } catch (e) {
+      }
+      try {
+        if (window.self !== window.top) root.classList.add("in-pane");
+      } catch (e) {
+        root.classList.add("in-pane");
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../style/ttobot.css">
+</head>
+<body>
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(당신을 실수로 체포해서는 쩔쩔매다) ...아, 안녕하십니까. (모르는 체...)</div>
+    <div class="ttobot-media"><img src="https://janhwa.site/system/media_attachments/files/117/411/092/082/657/006/original/fb88db9482b61a4a.jpg" alt="첨부 이미지" /></div>
+    <div class="ttobot-media"><img src="https://janhwa.site/system/media_attachments/files/117/411/092/102/185/003/original/6a66602a5cfb57df.jpg" alt="첨부 이미지" /></div>
+  </div>
+  <div class="ttobot-time">2026년 10월 9일 오후 10:05</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(당신을 바라본다. 수갑을 내려다본다. 다시 당신을 바라본다.) ……모르는 사람에게 수갑부터 채우시는 취미가 있으셨습니까?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 9일 오후 10:28</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">...(모르는 척, 괜히 시선이나 돌린다.) ...범죄자를 잡는게 내 의무니까요. 연행하겠습니다... 따라와.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 9일 오후 11:14</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(순순히 따라가려다 문득 걸음을 멈추고 당신을 바라본다.) 그런데 무슨 혐의로 연행하시는지는 알려주셔야 하지 않겠습니까? (수갑 찬 손을 살짝 들어 보이며 묘하게 웃는다.) 제가 무슨 범죄를 저질렀는지 궁금하군요. 직접 설명해주시겠습니까?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 10일 오전 12:09</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(걸음 멈추면 저도 우뚝 서고) ...무슨 혐의냐고요? ...스스로도 잘 알 것 같은데. 일단 첫 번째, 날 배신했고. 두 번째, 날 배신했지. 세 번째... ...왜 다시 내 앞에 나타나게 됐는지에 대해서. ...(살짝 노려보는 시선으로 돌아본다.) 우린 어떻게든 엮이는 인연인가봐.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 10일 오전 12:17</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(노려보는 시선을 가만히 마주하다가 작게 웃는다.) 그런 혐의라면…… 부정하기가 조금 어렵군요. 특히 첫 번째와 두 번째는 같은 혐의인 것 같습니다만. (수갑이 채워지지 않은 손가락으로 수갑을 톡톡 두드린다.) 그래도 세 번째까지 제 죄로 돌리시는 건 조금 억울합니다. 저도 마츠키 상을 여기서 다시 만나게 될 줄은 몰랐습니다. 알았다면 애초에 이 자리에 오지 않았겠죠. (잠시 당신을 바라보다 고개를 기울인다.) 정말 인연이라면, 이번에도 제가 먼저 사라질까 봐 이렇게 잡아두시는 겁니까?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 10일 오전 01:11</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">잘 알고 있네. 100% 그쪽 잘못이지. (수갑 건드리는 것 빤히 내려다보다가) 왜? 나랑 다시 만나기 싫어서? 내가 계속 돌아오라고 할까봐? ...(자리에 가만히 머무르다 이내 짜증 담긴 발길질로 바닥이나 짓밟고) ......그런걸로 칠까. 아예 도망 못 가게 잡아두게. 두 번이나 도망갔는데 세 번이라고 안 도망갈까? ...난 형 못 믿어. ...분명 같은 길을 걷고 있었을텐데, 왜. 그리고 어차피 못 풀어주거든, 지금. ...미안하지만 열쇠를 서에 두고 와서. 이대로 연행되는 수 밖에 없겠는데.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 10일 오전 01:50</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">아뇨, 그건 아닙니다. 그냥…… 마츠키 상을 보고 있으면 조금 곤란해져서 말입니다. (못 믿는다는 말에 잠시 눈을 깜빡이다가 작게 웃는다.) 그건 섭섭하군요. 그래도 두 번이나 도망간 전적이 있으니 변명은 하지 않겠습니다. (수갑을 가볍게 흔들어 보인다.) 이번에는 열쇠까지 없으시다니 얌전히 잡혀가드리죠. (같은 길을 걷고 있었다는 말에 웃음이 조금 옅어진다.) ……그때는 그랬죠. 같은 길을 걷고 있다고 생각할 만했습니다. (잠시 당신을 바라보다 다시 평소처럼 웃는다.) 하지만 길이라는 게 언제까지나 같을 수는 없지 않습니까. 저는 제가 가고 싶은 쪽으로 갔고, 마츠키 상은 그쪽에 남으신 것뿐입니다. 그러니 제가 돌아오지 않은 걸 너무 이상하게 생각하지 마시죠.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 10일 오전 02:31</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">...왜 곤란한데? 내가 뭐 잘못한 거라도 있어? 아니면 양심에 찔리기라도 해서? (섭섭하다는 말에 작게 움찔한다. 상처받았으려나, 슬쩍 눈치보고) ...왜 가고 싶은 쪽이 굳이 안 좋은 쪽이었을까. 나랑 같이 영웅놀이도 했으면서. ...그리고 내가 준 것들도 버리지 않고 갖고 있었으면서. 솔직히, 나 꽃반지... 버렸을 줄 알았어. 책갈피는 몰라도. ...사실 나 꽃반지는 잃어버렸거든. 이걸로 한 번 미안하다고 퉁칠게. .....(잠시 침묵 이어진다. 한숨 푹 내뱉으며) ...내가 경찰서로 데려가서 수갑을 풀어주면, 정말 나한테서 도망치는 거야? ...이번이 마지막 기회인거야? 응? ........솔직히 말해서, 지금 풀어주기 싫어. ...이대로 그냥 다른 곳으로 데려가버리고 싶어. 못 도망가게. (고개 푹 숙인 채 점점 느려지는 발걸음으로 앞장서다 이내 발걸음 비슷해진다.) ...아예 모르는 사람이 되고 싶지 않아서. 세 번이면 정말 모르는 사람이 되어버릴 것 같단 말야.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 10일 오전 03:06</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">……제가 마츠키 상을 보면 곤란한 이유가 바로 이런 겁니다. 자꾸 제가 두고 간 것들을 다시 생각하게 만드시지 않습니까. 제가 불행하게도 그리 좋은 사람은 아닙니다. 마츠키 상을 만나기 전부터 이미 좋지 않은 방향으로 걷고 있던 사람이었으니까요. (잠시 시선을 내린다.) 그냥…… 작은 변덕이었습니다. 마츠키 상과 함께라면 저도 정말 영웅이 될 수 있을까, 잠깐 그런 생각을 했던 겁니다. 하지만 역시 본성을 바꾸기는 어려웠던 모양입니다. (그러다 꽃반지 이야기에 다시 웃는다.) 그리고 저는 물건을 잘 버리지 못하는 편입니다. ……꽃반지는 잃어버리셨군요. 그럼 미안하다는 말 한 번으로는 조금 부족한 것 아닙니까? 저는 이십 년이나 잘 가지고 있었는데 말입니다. (장난스럽던 웃음이 조금 옅어진다. 느려진 걸음에 맞춰 천천히 나란히 걷는다.) ……마츠키 상. 제가 두 번 사라졌다고 해서 마츠키 상을 모르는 사람이 된 적은 없지 않습니까. 꽃반지도, 책갈피도 아직 가지고 있고요. 그러니 세 번째가 있다고 해서 갑자기 모르는 사람이 되지는 않을 겁니다. 그리고 수갑을 풀어주자마자 도망가겠다고 한 적도 없습니다. 그러니 벌써 마지막이라고 생각하지 마십시오. (당신을 가만히 바라보다 고개를 살짝 기울인다.) 그래서…… 저를 어디로 데려가고 싶으신 겁니까, 마츠키 상?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 10일 오전 03:49</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">...거짓말. 내가 본 형은 분명 좋은 사람이었는데. 나랑 같이 어울려주고, 좋은 말만 해주고. 다정하게 손도 잡아주고... (말 끝을 점점 늘이다 이내 입 꾹 닫는다. 계속 말해봐야 안좋은 자극만 주는 것이 아닐까 싶어서. 혹여나 더 상처받아 얼굴도 안 보여줄까 싶어서...) ...그러게. 미안하다는 말 한 번 가지고는 용서가 안 되겠네. 그럼... 뭐 원하는 거라도 있어? 한 대 때리기라고 하려고? 순순히 맞아주고 싶진 않은데. (조금은 농조 섞어 이야기 한다.) ...그래도 나, 목걸이 매일 차고 다니잖아. 형이 사준거. ...팔찌는 어때? 집에 잘 모셔두고 있나? 싸구려라서 지금까지 멀쩡할지는 모르겠지만. (나란히 걷고 있음에도 괜히 옆구리가 시린 기분이다.) ...형은 대체 날 어떻게 대하고 싶은 걸까. 버리고, 잘 해주고. 버리고, 잘 해주고... 이번엔 또 버려질 차례인 거 아냐? 이미 각오하고 있어. 그렇게 말하면서 또 말 없이 사라질 거라는 거. (물론 거짓말이다. 각오는 커녕 진짜 그럴까 두려울 뿐이다. 이내 들려오는 질문에 입 닫고 발걸음 멈춰 가만히 땅만 응시한다. 정적 흐르고 이내) .........집으로 갈까. 수갑 열쇠만 챙겨서. 경찰서에서 하는 대화는 집중도 안 되고... ...역시 계속 불안하단 말이야. <strong><em>한 번만 어울려줘.</em></strong></div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 10일 오전 04:03</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">순진하시네요, 마츠키 상. 전 그저 좋은 사람인 척을 한 겁니다. 굳이 나쁜 사람으로 보여서 좋을 건 없지 않습니까. 사람에게는 좋은 인상을 남겨두는 편이 여러모로 편하니까요. (그래도 <em>당신에게만큼은 좋은 사람이고 싶었다</em>는 말은 삼킨다. 잠시 당신을 바라보다 입꼬리를 올린다.) 그리고 때릴 생각은 없습니다. 꽃반지 하나 잃어버렸다고 사람을 때릴 만큼 무서운 사람은 아닙니다. 대신 빚으로 남겨두죠. 나중에 제가 원하는 게 생기면 그때 갚으십시오. (목걸이 이야기에 잠시 시선이 머문다.) 아직도 매일 하고 계셨습니까? 그건…… 조금 의외군요. 팔찌도 잘 가지고 있습니다. 싸구려든 아니든, 제가 받은 물건이지 않습니까. 멀쩡히 보관하고 있으니 걱정하지 마십시오. 물론 이제는 하고 다니다가 망가질까 봐 잘 보관해두고 있습니다만. (이어지는 말에는 잠시 침묵하다가 천천히 입을 연다.) ……제가 마츠키 상을 어떻게 대하고 싶은지는 저도 잘 모르겠습니다. 다만 버리려고 잘해드리는 건 아닙니다. 잘해드리고 싶은 순간에는 정말 그러고 싶어서 그러는 겁니다. 그러니 이번에는 절대 떠나지 않겠다고 약속드리지는 않겠습니다. 지키지 못할 약속을 해서 마츠키 상을 세 번째로 속이는 것보다는 그게 낫지 않겠습니까. (집으로 가자는 말에는 입을 열었다가 다시 다문다. 잠시 침묵한 끝에 결국 작게 한숨을 내쉬듯 웃는다.) ……알겠습니다. 어울려드리겠습니다. 그러니 안내해주시죠, 마츠키 상.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 10일 오후 06:08</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">...내가 제대로 속아 넘어갔나봐. 형의 속임수에. ...그리고 나 혼자 그렇게 믿었던거겠지. <em>좋은 사람이었다고.</em> 조금 마음 아프네, 배신 당한 기분이라서. (조금 허탈하게 웃고는 다시 입 다문다.) ...원하는게 뭘까. 그래도 다행이네. 빚이라도 져서 만날 명분 하나 쯤 만들었으니까. 응, 뭐든 말해봐. 죽는 거 빼고 다 해줄테니까. ...아, 맞는 것도 좀 피하고 싶고. ...뭐? 안 버렸어? 제대로 된 걸 하나 더 사줘야 하나... 애초에 사준다고 해서 받아줄지 모르겠지만. 나도 형이랑 마찬가지로 버리는 걸 잘 못 해서 말야. ...아, 그래도 형이 떠나고 만든 꽃반지는 있어. (그리운 마음에 만들었지만... 어차피 얘기해봤자 분위기나 가라앉을 듯 싶어 딱히 얘기 덧붙이진 않는다.) 만나면 주고 싶었는데, 지금은 다 시들어버려서. 아마 손가락에 끼우는 동시에 망가질 것 같네. 응.. 왜 뭐든 시간이 지나면 망가져버리는 걸까. (그리 말하며 당신 얼굴을 슬쩍 바라보다 다시 정면으로 돌린다.) ....뭐? .........약속하면 되잖아. 다시 안 떠나겠다고. ...속이는 거 아니라고, 진짜 떠나지 않겠다고. ...이제 이별같은 건 없다고 하면 되는 거 아냐? 이제 그만 멀어지고 싶어. ...왜 내가 가까워지려고 다가가면 형은 항상 사라지는 거야? 왜? <strong><em>내가 그렇게 싫어...?</em></strong> (말이 이어질 수록 목소리가 먹먹하고 축축해진다. 고개를 푹 숙인 탓에 표정이 보일리는 없겠지만.) ......별로 가고 싶지 않다면 거절해도 괜찮아. 근데 그렇게 얘기한 이상 안 데려갈 수가 없겠네. 내 귀로 직접 들었으니 이게 증거야. 내뺄 생각 하지 마. (수갑을 쥐던 손이 슬슬 아프자 그냥 남은 한 쪽을 제 손에 채워버린다.) 보통 이렇게 연행하는 경우는 없는데. 어차피 열 수 있으니까... 가자. 일단 경찰서부터. (그리 말하며 다시 앞장서 걷는다. 아까 먹먹했던 근원지인 눈가를 장갑낀 손으로 한 번 쓸어 넘기고)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 10일 오후 08:30</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(배신당한 기분이라는 말에는 잠시 입을 다문다. 허탈하게 웃는 당신을 가만히 바라보다가 조금 늦게 입을 연다.) ……그렇게까지 말씀하시면 조금 미안해지는군요. 그래도 전부 속임수였던 건 아닙니다. 마츠키 상과 어울렸던 것도, 좋은 말을 해드린 것도, 손을 잡아드린 것도 그 순간에는 전부 제가 원해서 한 일이었습니다. 제가 좋은 사람이 아니었다는 것과 마츠키 상께 했던 행동까지 전부 거짓이었다는 건 다른 이야기니까요. 그러니 혼자 속아 넘어갔다고 생각하지는 마십시오. 그리고 그렇게까지 각오하실 필요는 없습니다. 죽으라고도, 때리겠다고도 하지 않을 테니까요. 대신 뭐든 해주겠다는 말씀은 기억해두겠습니다. 나중에 제가 원하는 게 생겼을 때 모른 척하시면 안 됩니다, 마츠키 상. (새것을 사줘야 하나 고민하는 말에는 잠시 생각하듯 시선을 굴린다.) 흐음……. 새로 사주신다면 좋죠. 지금 가지고 있는 건 망가질까 봐 하고 다니기가 조금 아까워서 말입니다. 새것이라면 마음 놓고 하고 다닐 수 있겠군요. 그리고 꽃반지는 시들었어도 주시죠. 손가락에 끼우면 망가질 것 같으면 끼우지 않고 보관하면 되지 않습니까. (당연하다는 듯 덧붙인다.) 망가졌다고 꼭 버려야 하는 건 아니니까요. (그러다 문득 조금 전의 질문을 떠올린 듯 웃음이 옅어진다.) ……아까 왜 마츠키 상을 보면 곤란하냐고 물으셨죠. 가끔 착각하게 만드셔서 그렇습니다. (잠시 시선을 내린다.) 마츠키 상과 함께 있으면 저도 천국 같은 곳에 갈 수 있을 것 같다는 착각 말입니다. 하지만 저는 천국에 어울리는 사람이 아닙니다. 그건 제가 제일 잘 알고 있습니다. (다시 당신을 바라보며 희미하게 웃는다.) 반대로 마츠키 상은…… 그런 곳이 제법 잘 어울리는 사람이고요. 그러니 곤란할 수밖에 없지 않겠습니까. 자꾸 제게 어울리지 않는 걸 욕심내게 만드시니까요. (이어지는 말에는 걸음이 조금 느려진다. 먹먹해지는 목소리를 잠자코 듣다가, 당신이 고개를 숙인 뒤에야 입을 연다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오전 12:25</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">아닙니다. 그건 절대 아닙니다. ……마츠키 상이 싫어서 떠난 적은 없습니다. 마츠키 상께서 가까이 오셔서 떠난 것도 아니고, 마츠키 상이 뭘 잘못해서 그런 것도 아닙니다. 그러니 제가 사라진 이유를 자꾸 본인에게서 찾지는 마십시오. 모든 문제는 제게 있습니다. (그러다 남은 수갑 한쪽을 제 손목이 아닌 당신의 손목에 채우는 모습을 내려다본다. 철컥이는 소리가 나자 잠시 눈을 깜빡인다. 앞서 걷기 시작한 당신을 따라 걸음을 옮긴다. 눈가를 훔치는 모습을 보고도 굳이 아는 척하지 않은 채, 수갑으로 이어진 손을 가볍게 당겨 걸음을 맞춘다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오전 12:25</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">......그러면 지금도... 원해서 하는 일이야? 나랑 상대해주고, 대화도 나누고... 길도 같이 걸어주고. ...게다가 수갑에 순순히 채워지고. 역시 형은 속을 모르겠어. 그리고 속을 모르겠어서 난 계속 연구하게 되고. ...깊게 생각하게 되고. ...참 이상하지? 난 풀리지 않는 문제를 계속 물고 늘어지거든. 고집이 세서 그런가. ...진실을 알고 싶다는 얘기야, 난. 쨌든, 한 번 한 약속은 어기지 않으니까 난. 모르는 척 안 할게. 물고 늘어지는 것도 포기 안 하고. (제 주머니에 수갑 채워지지 않은 손 푹 찔러넣고) 근데 내가 돈을 잘 버는 편이 아니라... ...비싼 건 못 사줘. 적당한 걸로 골라서 채워줄테니까. ...아, 수갑도 팔찌로 쳐주나? 이미 하나 채워줬네. (농조로 이야기하고) ...그래, 망가졌다고 버려야 하는 건 아니니까. (그리 말하며 윗 옷 주머니에 넣어둔 코팅지에 감싸진 시든 꽃반지를 내민다.) ...만나면 줄 생각이었어. 직접 끼우지는 못 하지만.. ...이번엔 토끼풀이네. 주변에 이것 밖에 없더라고. 애초에 이런 꽃반지를 끼고 다니는 간부는 좀 웃길지도 모르겠다. 시든 게 다행인건가... 원하면 말 해. 제대로 된 반지... 이제 맞춰줄 수 있거든. 아, 아까도 말했다시피 비싼 반지는 안 되지만... ...쨌든. (헛기침. 내가 지금 뭔 소리를 하고 있는거람... 제 뒷머리 긁적이고) ...왜 천국에 어울린다고 생각하지 않는 거야? 누가봐도 신앙심있는 형이 더욱 어울리는 거 아냐? 그리고 욕심내면 뭐 어때. 욕심내서 이루면 되지. ...구원이라고 하나? 신에게 구원받지 못한다면... ...뭐... (잠시 망설인다. 이런 말을 할 처지가 될까 싶어서) <em>...내가 구원시켜주면, 천국 못 가나?</em> ...아냐, 그냥 무시해. 제대로 교회나 다니고... 열심히 기도하면 천국이고 어디고 다 가겠지. (자기가 말해놓고 부끄러운지 살짝 붉어진 제 뺨 긁적인다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오전 02:01</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">...그럼 내가... ...난 형한테 어떤 존재인걸까. 곤란하게 만들고, 싫지도 않고. ...오해하게 만들기도 하고... ...어떻게 보면 내가 형 곁에 있으면 안 되는 거 아닐까 싶어. 좋은 영향을 주는게 맞나 싶고. (어느 새 도착한 경찰서에서 제 책상 위에 올라가있는 열쇠를 주머니에 넣는다. 지금 당장 풀 생각 없다는 듯, 다시 밖으로 걸어나온다.) ...조금만 더 이러고 걷자. 거짓말 없이, 정말 떠나지 않겠다는걸 알려주면. ...제대로 내가 믿게 해주면. 정말 그럴 맘이 든다면... 그 때 풀어줄 거야. (물론 아니다. 그냥 제 희망을 말해봤을 뿐...) 가자. 집으로... ...대신 으리으리하진 않아. 투박한 원룸이라. 기대하지는 말고... (그리 말하며 수갑 제 쪽으로 끌어 발 맞춰 천천히 걷기 시작한다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오전 02:01</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(지금도 원해서 하는 일이냐는 물음에는 잠시 당신을 바라보다가, 이번에는 망설이지 않고 고개를 끄덕인다.) 네. 지금도 제가 원해서 하는 일입니다. 마츠키 상과 이야기하는 것도, 같이 걷는 것도요. 수갑은…… 제가 원해서 채워졌다고 하기에는 조금 억울합니다만. (이어진 말에 작게 웃는다.) 그래도 풀어달라고 하지 않는 건 제 의지죠. 그러니 굳이 연구하실 필요는 없지 않습니까. 궁금한 게 있다면 그냥 물어보십시오. 제가 대답하고 싶은 만큼은 솔직하게 말씀드리겠습니다. (건네진 꽃반지를 내려다보다가 조심스럽게 받아든다. 코팅지 너머로 시든 토끼풀을 한동안 바라본다. 입가에 웃음이 번진다.) 감사합니다. 잘 보관하겠습니다. 그리고 제대로 된 반지는…… 굳이 비쌀 필요는 없습니다. 마츠키 상께서 골라주신다면 그것으로 충분합니다. 수갑은 팔찌로 치지 않겠습니다. 이런 걸 매일 차고 다닐 수는 없지 않습니까. (구원이라는 말에는 웃음이 조금 옅어진다. 붉어진 뺨을 바라보다가 잠시 시선을 내린다.) 제가 천국에 어울리지 않는다고 생각하는 건 신앙심의 문제가 아닙니다. 기도를 많이 한다고 해서 제가 살아온 방식까지 없어지는 건 아니니까요. 저는 씻을 수 없는 죄를 많이 저질렀습니다. (잠시 침묵한다.) 그런데 마츠키 상께서 저를 구원해주시겠다니…… 역시 곤란한 말씀을 아무렇지도 않게 하시는군요. 그런 말을 들으면 정말 가능할지도 모른다고 생각하게 되지 않습니까. (이어진 질문에는 이번에는 바로 답하지 못한다. 수갑으로 이어진 손목을 내려다보다가 천천히 당신을 바라본다.) ……마츠키 상이 제게 어떤 존재냐고 물으셨죠. 좋은 영향을 주는지 나쁜 영향을 주는지는 잘 모르겠습니다. 하지만 곁에 있으면 안 되는 사람이라고 생각한 적은 없습니다. 오히려 그 반대에 가깝습니다. 곁에 계시면 제가 평소라면 욕심내지 않을 것들을 자꾸 욕심내게 됩니다. 좋은 사람이 되어볼까, 구원받아볼까……. 떠나지 않고 계속 곁에 있어볼까, 그런 생각까지 하게 만드시니까요.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오전 02:59</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">그러니 곤란한 겁니다. (경찰서에 도착하고도 수갑을 풀지 않은 채 다시 밖으로 향하는 당신을 보고 작게 웃는다. 이끌리는 대로 발을 맞춘다.) 그런데 마츠키 상. 제가 정말 떠나지 않겠다고 믿으실 때까지 안 풀어주실 생각이라면, 이 수갑은 생각보다 오래 차고 있어야 할지도 모르겠습니다. (이어진 집 이야기에 고개를 기울인다.) 뭐, 상관없습니다. 으리으리한 집을 기대하고 따라가는 것도 아니니까요. 그냥…… 마츠키 상이 그동안 어떻게 살고 계셨는지는 조금 궁금하기도 합니다.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오전 02:59</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">그냥 물어보라고? ...다 대답해줄 거야? 정말? ...그러면 왜 날 두고 갔는지가... 제일 궁금하지. 그리고 나에게 정말 거짓말을 하지 않는지. 계속... 같은 말만 반복하게 되네. 응, 그만큼 궁금했으니까. 그럼, 앞으로 나랑 함께 하는 것들은 전부 형이 원해서 하는 것들이겠지? (웃는 얼굴을 보니 저도 옅게 미소 지어진다.) ...그래도 나랑 반지가 차고 싶긴 한가보네. 살 필요 없다고 하는게 아닌걸 보니. 응, 조만간... 선물해줄게. 그러니까 부르면 나와. 사라지지 말고. (손목에 채워진 제 수갑 손으로 쓸기나 한다. 구원이라니, 본인이 얘기하고도 민망하다. 갑자기 어디서 나온 용기로 그렇게 거창한 말을 했을까... 말이 이어지지 않으면 긴장한 듯 몸 점점 경직되어간다.) ...왜? 당연히 가능...하지. ...난 형이 지은 죄를 몰라. 신이랑 다르게. 좋은 모습밖에 모르지. ...그리고 구원받고 싶어하는 모습이랑.. ...(곁에 있어볼까 생각한다는 말에 수갑 채워진 손끼리 맞잡는다.) ...응, 그렇게 하면 되는데. 곁에 있어도 되고, 욕심 내도 되고. ...구원 받아도 좋아. 비록 내가 신은 아니라... 세상의 중심이 되진 못하지. 물론 신만큼 착하고 정의롭지도 않아. 하지만... ...사람 한 명 구원 시켜줄 마음은 얼마든지 있어. ...모두에게 좋은 사람이 될 필요 없어. 형이 좋게 보이고 싶은 사람에게만 좋은 사람이 되면 되는 거야. 이런 측면에서 곤란하게 만든거라면, 좋네. 원래 바람이 불어야 가지가 흔들리거든. 응. ...형을 좀 흔들어봐야겠네. 나를 위해서라도. 물론 형을 위해서가 제일 크지만. <strong>...슈지 형. 나한테 구원받을래?</strong></div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오전 03:50</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(하늘 바라보며 같이 발맞춰 걷는다. 조금 춥나, 그리 생각하던 참에) 잘 됐네. 그러면 평생 채워놓고 살아야겠다. 내가 원래 잘 못 믿는 성격이기도 하고, 형이 쉽게 마음을 안 여는 것도 있는 것 같고. (장난스레 그리 이야기한다.) ...그냥, 심심하면 퇴근 길에 꽃가게에 들르고... 자전거타고 순찰 돌고. ...아, 이것도 마찬가지. (들고 있는 꽃다발 당신에게 내민다.) 백합이랑, 해바라기... 국화도 있네. 어쩌다보니 이 꽃다발이 눈에 띄더라고. 그래서 사온거야. ...좀 웃긴가. (픽...) ...가져. (고개 반대쪽으로 돌리고 당신에게 다시 내민다. 손이 조금 떨릴지도)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오전 03:50</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(왜 두고 갔느냐는 질문에는 잠시 시선을 내린다. 이미 몇 번이나 되풀이된 물음인데도 이번에는 쉽게 대답이 나오지 않는다.) ……제가 마츠키 상 곁에 계속 있으면, 자꾸 욕심이 생겼으니까요. 지금처럼 말입니다. (잠시 침묵하다 희미하게 웃는다.) 제가 선택한 길과 마츠키 상은 어울리지 않았고, 그렇다고 마츠키 상을 이쪽으로 끌어들이고 싶지도 않았습니다. 그래서 그냥 제가 떠나는 편을 택했습니다. 마츠키 상께서 어떻게 생각하실지는 제대로 생각하지도 않고요. ……이제 와서는 그게 옳은 선택이었다고 말씀드릴 수도 없겠군요.<br>(부르면 나오라는 말에는 작게 웃는다.) 하하……. 네. 나가겠습니다. 적어도 마츠키 상께서 반지를 주겠다고 부르셨는데 또 사라지는 짓은 하지 않겠습니다. (이어지는 말에는 잠자코 귀를 기울인다. 모두에게 좋은 사람이 될 필요는 없다. 욕심내도 된다. 자신이 구원해주겠다는 말까지. 그러다 맞잡으려던 손이 순간 멈춘다.) ……정말 저를 구원해주실 수 있습니까, 마츠키 상? (조금 전과 달리 웃음기가 없다. 맞잡지 못한 손을 내려다보다가 천천히 당신을 바라본다.) 마츠키 상께서는 제가 지은 죄를 모른다고 하셨죠. 좋은 모습밖에 모른다고도 하셨고요. 그렇다면…… 알고 나서도 같은 말씀을 하실 수 있습니까? (한동안 망설인다. 굳이 말할 필요가 없는 일이다. 지금까지 그랬던 것처럼 웃어넘기면 그만이었다. 그런데도 이번만큼은 그러고 싶지 않다는 충동이 든다. 당신이 자신의 죄까지 알고도 여전히 품어줄 수 있을지, 문득 확인하고 싶어진다.) ……마츠키 상. 저는 사람을 죽였습니다. 누군가의 명령을 받아서도, 어쩔 수 없는 상황에 몰려서도 아닙니다. 제 손으로, 제 의지로 직접 죽였습니다. (그제야 멈췄던 손을 천천히 움직여 당신의 손을 맞잡는다. 시선은 피하지 않는다.) <strong>그래도 저를 구원해주실 수 있습니까?</strong></div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오후 04:40</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(이어지는 이야기는 조용히 듣는다. 퇴근길에는 꽃가게에 들르고, 자전거를 타고 순찰을 돈다는 평범한 일상을 머릿속에 그려보듯 잠시 당신을 바라본다.) ……그렇게 지내셨군요. (그러다 불쑥 내밀어진 꽃다발에 눈을 깜빡인다. 백합과 해바라기, 국화를 천천히 훑어보다가 반대편으로 돌아간 얼굴과 미세하게 떨리는 손에 시선이 멈춘다.) ……저 주시는 겁니까? (이번에는 놀리지 않고 조심스럽게 꽃다발을 받아든다. 한동안 꽃을 내려다보다가 입가에 부드러운 웃음이 번진다.) 웃기기는커녕 기쁩니다. 감사합니다, 마츠키 상. 꽃을 선물받는 건 꽤 오랜만인 것 같군요. (꽃다발을 품에 안고 다시 당신을 바라본다.) 그런데 꽃반지에 반지도 사주시겠다 하고, 이번에는 꽃다발까지……. 이러다 제가 마츠키 상을 만날 때마다 뭔가 기대하게 되면 어떡하시려고 그러십니까? (조금 장난스럽게 웃는다.) 다음에는 빈손으로 나오시면 제가 섭섭해할지도 모르겠습니다.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오후 04:40</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">...그러게. 옳은 선택은 아니었지. (대답이 나올 때 까지 가만히 기다렸다. 까맣고 까만 하늘이나 응시하며) 혼자 떠나지 말고 차라리 둘이서 떠나지. ...물론 나까지 안 좋은 길로 빠져들었겠지만, 외로운 마음은... 안 들었을테니까. ...아니면 내가 옆에서 도와줬을지도 모르겠네... (고개 살짝 떨구고) ...응, 당연하지. 약속의 반지인 걸로 할까. 우리 예전에 증표같은 거... 많이 갖고 싶어했잖아. 절대 사라지지 않겠다는 반지. 그거 갖고 가져갈거면, 차라리 나 주고 떠나. 다른 사람 찾아서 손가락에 끼워줄거니까. (물론 농조다.) ...(망설이는 모습에 어떤 말을 하려는 것인지, 조금은 긴장한다. 웃음기 없는 당신의 표정은 거의 처음 봤기에... 얼마나 진지한 순간인지, 또 얼마나 각오하고 이야기를 하려는 것인지. 아니면 저에게 주는 첫 번째 시련이자 테스트일지도 모르겠다는 생각을 하던 찰나, 사람을 죽였다는 이야기에 잠시 정적이 흐른다. 지금 맞잡힌 이 손으로 사람을 죽였을까? 누가봐도 긴장하고 당황한 모습의 루이다. 한참을 말이 없다가 생각이 정해진 듯 입을 열고) ...응. 회개..라고 하지? 신에게 회개할 용기가 없다면, 나한테 회개를 해. 그리고... 구원이 뭔데. 구원은 도와주는 거잖아. 그 길에서 다시 빠져나오고 제대로 된 삶을 이어나가고 싶다는 소망을 들어주는거지. ...사람을 죽였다는 건 딱히 용납되는 사항이 아니긴 해. 다만... ...난 아직 정의랑 좀 거리가 먼 가봐. ...다른 사람이었으면 모를까, 형이 그렇게 얘기하니까... ...용서해주고 싶어지네. 응, 난 제대로 된 경찰이 아닌가봐. (맞잡은 손에 더 힘 주고 어깨에 제 고개를 기댄다.) 까짓거, 형이 죄책감 없고 날 떠나지 않고.. 곁에만 있어준다면. 욕심내서 나를 갖고 싶은 마음이 든다면... 얼마든지야. <strong><em>응, 내가 구원해줄게. 약속.</em></strong> 난 누구랑 다르게 절대 떠나지 않거든. (픽, 작게 웃는다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오후 05:21</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">...그, 원래는 내가 가지려고 했는데... ...집에 전시해두려고 했는데... ...오랜만에 만난 인연이기도 하고 또... (변명이나 중얼중얼 하며 받아드는 시간이 오래 걸릴 수록 손은 더 떨린다. 이내 받아드는 모습에 힐끔, 시선만 옆으로 돌려 확인하고) ...하아.. (꽤 용기내어 한 행동이었기에, 부끄러움으로 가득한 제 얼굴 손으로 쓸어내린다. 귀 끝까지 새어나갔을지도 모르겠다.) ..기대하던지. 빈 손으로 나오면... 밥이라도 사준다거나, 뭐... 원하는 거라도 해준다거나. 계속 나를 만날 때 마다 기대하게 해줄테니까... ...계속해서 기대해. ...싫다고 해도 만나러 나오라고 할 거야. (조금 가라앉자 그제서야 손 치우고 고개는 앞을 향한다.) ...아직도 백합, 마음에 들어? 어울리는 꽃이라고 생각해?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오후 05:21</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(둘이서 떠났으면 됐다는 말에 잠시 당신을 바라보다 작게 웃는다.) ……마츠키 상은 영웅이지 않습니까. 영웅을 어떻게 안 좋은 길로 빠져들게 할 수 있겠습니까. 차라리 제가 혼자 가는 편이 나았죠. (다른 사람에게 반지를 끼워주겠다는 말에는 눈을 가늘게 뜬다.) ……그건 싫군요. 제가 가지고 떠나면 다른 사람에게 주시겠다니. 이미 제게 주겠다고 하신 반지 아닙니까. (잠시 맞잡은 손을 내려다보다가 작게 웃는다.) 절대 사라지지 않겠다는 약속까지 당장 할 수 있을지는 모르겠습니다만…… 반지는 제가 받겠습니다. 다른 사람에게 주지 마십시오, 마츠키 상. (용서해주고 싶다는 말에 맞잡은 손이 아주 미세하게 굳는다. 이어 어깨에 기대오는 무게를 느끼고도 한동안 아무 말이 없다. 당신이 농담처럼 웃고 나서야 천천히 숨을 내쉰다.) ……이상한 분이시군요, 마츠키 상. 사람을 죽였다고 고백한 사람에게 그렇게 쉽게 구원해주겠다고 약속하시다니. 경찰로서는 정말 낙제일지도 모르겠습니다. (그렇게 말하면서도 맞잡은 손은 놓지 않는다. 오히려 손가락에 조금 힘을 주어 마주 잡는다.) 그래도…… 감사합니다. 제가 무슨 말씀을 드려도 마츠키 상께서는 결국 저를 포기하지 않으시는군요. (잠시 시선을 내린다.) 다만 한 가지는 말씀드려야겠습니다. 저는 아직 제가 선택한 길에서 빠져나오고 싶다고 생각하지는 않습니다. 제가 한 일을 후회한다고 말씀드릴 수도 없고요. 그러니 마츠키 상께서 말씀하시는 구원을 제가 받을 수 있을지는…… 아직 모르겠습니다. (천천히 당신에게 시선을 돌린다.) 그래도 언젠가 제가 정말 빠져나가고 싶어지는 날이 온다면, 그때도 오늘처럼 제 손을 잡아주시겠습니까? (계속 기대하라는 말에는 잠시 눈을 깜빡이다가 이내 작게 웃는다.) ……그 말씀도 기억해두겠습니다. 계속 기대하게 해주시겠다면서요. 나중에 제가 정말 당연하다는 듯 뭔가를 바라기 시작해도 귀찮아하시면 안 됩니다. (조금 장난스럽게 고개를 기울인다.) 마츠키 상께서 먼저 버릇을 들이시는 거니까요.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오후 06:59</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(백합을 바라보다 조금 애매한 표정으로 고개를 기울인다.) ……백합은 여전히 좋아합니다. 다만 저와 어울리는지는…… 이제는 잘 모르겠군요. 이십 년 전의 저라면 몰라도요. (꽃을 내려다보다 당신을 바라본다.) 그래도 마츠키 상께서는 여전히 그렇게 생각하십니까?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오후 06:59</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">그러면 내가 영웅이면, 같이 영웅일 수 있는 거 아니야? 굳이 악역을 자처할 필요는 없는데. 애초에 나한테 있어서 악당도 아니고 말이야... (싫다는 말엔 의외라는 듯 쳐다본다. 별 신경도 안 쓸 줄 알았는데...) ...생각보다 욕심 있네. 놀랐어. 흠... 그럼 고민 해봐야겠네. 말 안 들으면 다른 사람 홀랑 줘버려야지. (물론 장난이다. 말해놓고 큭큭대며 웃어버리고는) ...응, 꼭 손가락에 끼워줄게. 어느 손가락에 끼워지고 싶은지, 생각해두고 있어. 그러면 며칠 뒤에 부를테니까. (아무 말 없는 모습에 혹여나 본인이 너무 부담스럽게 했나 너무 억지부리고 있나, 괜히 걱정하며 저도 경직된다. 어깨에 올려둔 머리를 치우기에도 이미 늦었고, 그렇다고 가만히 있기에도 눈치보이고... 그렇게 우왕좌왕 하던 중 이어서 목소리 들려오면 작게 움찔한다.) ...그래, 받기 힘들다면... 굳이 받을 필요 없긴 하지... 애초에 내가 억지부린 내용이었으니까, 응... (급격히 자신 없어지는 모습이다. 그렇게 당당하게 말할 때는 언제고... 감정이 정말 확연히 드러나는 그이다.) ...난 지금 당장 나오라고 한 적 없어. 그러니까... 마음의 정리를 할 시간은 충분히 주지. 하지만 너무 오래는 못 기다릴지도 몰라. (물론 평생이고 기다려줄 수 있지만, 나름의 경각심을 심어주고자 하는 말이다.) 이번엔 내가 떠나기 전에, 마음을 정해두는게 좋을 것 같은데. 안 그래? 손이야 언제든지 잡아줄 수 있으니까. 이렇게. (더 세게 잡은 손에 푸스스 작게 웃으며 머뭇거리다 어설프게 깍지로 바꾼다. ...말만 손깍지지, 그냥 대충 얽힌 정도다. 손가락끼리만 조금 맞닿은 정도. 어깨에 기댄 얼굴이 달아올라있을지도 모르겠다.) ...다, 당연하지. 하나도 안 귀찮아. 큰일났네, 이상한 버릇 들이게 해버려서. 뭘 바라고 있으려나.. 좀 궁금하네. 지금도 혹시 나한테 바라는게 있어? 그냥 궁금해서.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오후 08:09</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(저를 바라보는 시선에 잠시 고민한다. 이내 고개 끄덕) ...솔직히 형이 누군가를 사랑하는 모습을 본 적이 없어서 잘 모르겠지만... 그래도 기도하는 모습을 몰래 지켜봤을 때 만큼은 아직도 기억나. 눈을 꼭 감고 손을 모으고.. 그 때 만큼은 정말 신에게 순수한 사랑을 전하는 것 같았거든. 그리고 다른 뜻들도 더 있어. 음... 새로운 시작이라는 뜻도 있고, 무죄라는 뜻도 있다나봐. 사이트마다 다 달라서 잘은 모르겠지만, 어쨌든. 내가 주는 백합의 뜻은... 새로운 시작이라는 뜻에서 주는 걸로 할까. 어때? 난 아직도 해바라기처럼 보여? (어느 새 걷다보니 도착한 제 멘션 앞에 우뚝 서서는) 저기가 우리 집. ...좀 허름하긴 한데, 나름 살만 해. 우리 집은 2층이라 계단으로 가야 돼. 따라와. (그리 말하며 집으로 이끈다. 조금 긴장한듯 경직된 걸음...)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 11일 오후 08:10</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(같이 영웅이면 된다는 말에는 잠시 당신을 바라보다가 작게 웃는다.) ……마츠키 상은 참 쉽게 말씀하시는군요. 제가 마츠키 상 옆에 서 있다고 해서 저까지 영웅이 되는 건 아닐 텐데요. 그리고 제가 마츠키 상에게 악당이 아니라고 해도…… 저는 이미 마츠키 상을 제외한 다른 이들에게는 충분히 악당일 겁니다. (반지를 다른 사람에게 줘버리겠다는 말에는 웃고 있는 당신을 가늘게 뜬 눈으로 바라본다.) 자꾸 다른 사람에게 주겠다고 하시는군요. 제가 싫다고 말씀드렸는데도요. (물론 장난이 섞인 듯 가볍게 말한다. 그러다 어느 손가락이 좋겠냐는 말에 제 손을 한번 내려다본다.) 좋습니다. 생각해보겠습니다. (어설프게 얽혀오는 손가락을 내려다보다가 이번에는 자신이 조금 움직여 제대로 깍지를 낀다.) 그리고 아까부터 자꾸 본인이 떠나기 전이라고 말씀하시는데……. (맞잡은 손을 가볍게 흔든다.) 절대 떠나지 않으신다면서요. 벌써부터 제가 늦으면 먼저 가버리겠다고 겁주시는 겁니까? 조금 전의 약속과 말이 다르지 않습니까, 마츠키 상. (입가에 옅은 웃음을 띤다.) 그래도 알겠습니다. 너무 오래 기다리게 하지는 않도록 노력해보죠. 제가 정말 손을 잡고 싶어졌을 때 마츠키 상께서 먼저 놓아버리시면 곤란하니까요. (지금 바라는 게 있느냐는 물음에는 잠시 생각한다.) 지금 당장 말입니까? 흐음……. (한동안 고민하다 당신을 바라보며 싱긋 웃는다.) 그럼 집에 도착해서도 지금 잡고 있는 손은 제가 먼저 놓을 때까지 놓지 말아 주세요. 이 정도라면 마츠키 상께서 들이신 버릇치고는 아직 귀여운 편이지 않습니까?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 12일 오전 12:46</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">사이트마다 뜻이 다르다면 굳이 정해진 꽃말을 따를 필요도 없지 않습니까. (백합을 내려다보다 작게 웃는다.) 마츠키 상께서 새로운 시작이라는 의미로 주셨다면, 제게는 앞으로 그게 이 백합의 뜻이겠죠. 해바라기라……. (당신을 잠시 바라보다 웃는다.) 네. 그런데 생각해보니 조금 이상하군요. 해바라기라면 밝은 쪽을 바라봐야 하는데, 마츠키 상은 왜 자꾸 저 같은 사람을 바라보고 계십니까? (당신이 가리킨 건물을 잠시 올려다본다.) 여기가 마츠키 상께서 사시는 곳이군요. (긴장한 듯 굳은 걸음을 눈치채고 작게 웃는다. 수갑과 맞잡은 손에 이끌려 자연스럽게 함께 계단을 오른다.) 허름한지는 별로 중요하지 않습니다. 아까 말씀드렸듯 저는 마츠키 상이 어떻게 살아왔는지가 궁금해서 따라온 거니까요. (그러다 슬쩍 당신을 바라본다.) 그런데 마츠키 상, 긴장하셨습니까? 아까는 사람을 구원해주시겠다던 분이 집에 들어가는 것만으로 이렇게 굳으시면 곤란한데요.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 12일 오전 12:46</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">...그러면 뭐 어때? 지금은 나랑만 있잖아. 그리고 나에 대한 이야기 중이잖아. 남들한테 악당인게 뭐가 중요한건데? 그리고, 비록 야쿠자라고 해도... ...마음까지 나쁜 사람인건 모르겠단 말야. 나한테 있어서만 영웅이어도, 아니... 평범한 인간의 후지사키 슈지여도 괜찮은 거 아냐? (가늘게 뜬 눈에 흠칫) .....아, 알겠어. 그치만 좀 신기하고 놀리고 싶어서... ...고작 반지인데. ...아니, 우리한테는 고작이 아니려나. 대신 내 취향대로 살 거야. 마음에 안 들어도 끼고 다녀야 해. 장갑을 끼더라도 안에 꼭 끼고 다녀. 증표는 원래 몸에 차고 다녀야 하는 법이거든. 이렇게. (제 목에 걸린 십자가 목걸이 보여주고는 다시 겉옷 안에 넣는다. 어설픈 깍지가 제대로 끼워지면 흠칫, 놀라서는 동그랗게 뜬 눈 밑으로 깐다. 민망하고 쑥스러운 마음에 잡지 않은 반댓손 꾹 주먹쥐고 달아오른 채 어벙하게) ...으, 으응... ...그, 그치만 이렇게 해서라도 겁을 줘야... 안 떠날 것 같아서... ...물론 무시하면 끝이겠지만... 응... (점점 목소리 크기 줄어든다.) ...뭐? 그, 그게 바라는 거라고...? 왜...? (이해되지 않는지 되묻느라 고개 휙 돌려 달아오른 얼굴 그대로 보인다. 아차... 급하게 돌리고) ...이정도가 귀여운 수준이면... 앞으로는 어떤걸 더 요구하려고... ...으음 쨌든 뭐... 그렇게 해. (집에 도착하자마자 놓을 수도 있는거니까... 그러면 조금 아쉽겠지만.) 아직 버릇 제대로 안 들여놓았다고 생각했는데. 벌써 버릇 들린거야...? (민망한 제 뺨 긁적인다. 물론 잡고 있지 않은 손으로)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 12일 오전 01:31</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">...그래, 새로운 시작이었으면 좋겠네. 어떤 시작이 될지는 모르겠지만... 개인적으로는 구원의 시작이었으면 좋겠어, 나는. ...그럼 형이 내 태양... 그런 건가보지. (이 말은 조금 많이 부끄럽네... 잠시 정적 흐르다가) 아, 아.. 아니면 뭐... 조, 조금 이상한 해바라기라서... 그으... 어, 어두운 쪽을 좋아하는 걸 수도 있, 있고... 하하... (괜히 머쓱해 쓸데없는 얘기나 덧붙인다. 문고리를 돌리려는 찰나, 긴장한 것을 들키자 움찔하고는) ...으응...?!? 아, 안 긴장했어... 그, 그냥 집을 제대로 치웠나.. 안 치웠나... ...거, 걱정... 돼서.... (물론 핑계다. 조금은 맞을 수도 있지만... 문을 열면 좁고 평범한 원룸 안에 다양한 식물과 꽃 화분들이 전시되어있다. 상태는 모두 양호해보이며, 평범하고 협소한 가구들은 1인가구라는 것을 잘 보여준다.) ...좀 누추하지? (조금 머쓱한 목소리로 이야기하며 힐끔, 당신을 살핀다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 12일 오전 01:31</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(평범한 인간의 후지사키 슈지여도 괜찮다는 말에는 잠시 당신을 바라보다가 작게 웃는다.) ……마츠키 상은 정말 이상한 데서 관대하시군요. 다른 사람들에게 제가 어떤 사람이든 상관없고, 마츠키 상에게만 괜찮은 사람이면 된다니. (잠시 생각하듯 시선을 내린다.) 그래도…… 그 정도라면 저도 조금은 욕심내볼 수 있을 것 같습니다. 적어도 마츠키 상 앞에서는 영웅까지는 아니더라도, 평범한 사람 정도는 되어보도록 하죠. (목걸이를 보여주는 모습에는 자연스럽게 시선이 따라간다.) 반지는 마츠키 상 취향대로 고르셔도 됩니다. 제가 받겠다고 했으니 마음에 들든 말든 잘 끼고 다니겠습니다. 그런데 그렇게까지 증표를 강조하시니 정말 도망가기는 어려워지겠군요. 목걸이에 반지에…… 이러다 하나씩 늘어날 때마다 마츠키 상의 흔적을 주렁주렁 달고 다니게 되는 것 아닙니까? (왜 손을 잡고 싶냐는 물음에는 제대로 맞잡은 손을 한번 내려다본다.) 왜냐고 물으셔도……. 그냥 지금은 이러고 있고 싶어서요. 아까 제가 말씀드리지 않았습니까. 잘해드리고 싶은 순간에는 정말 그러고 싶어서 그러는 거라고. 이것도 마찬가지입니다. (당신의 달아오른 얼굴을 흘긋 보고는 조금 짓궂게 웃는다.) 그런데 이 정도로 당황하시는 걸 보니 앞으로는 조금 더 어려운 걸 바라봐도 재미있겠군요. 구원의 시작이라……. (품에 안은 백합을 잠시 내려다보다 옅게 웃는다.) 그건 앞으로 지켜봐야 알겠죠. 그래도 마츠키 상께서 그렇게 바라신다면 이 꽃을 볼 때마다 기억해두겠습니다. 제 구원을 시작해보겠다고 큰소리치신 분이 있었다고요. (그러다 태양이라는 말이 나오자 눈을 깜빡인다. 뒤이어 횡설수설하는 모습을 잠자코 바라보다 결국 작게 웃음을 터뜨린다.) 하하……. 마츠키 상, 이미 말씀하셨는데 이제 와서 수습하셔도 늦었습니다. 제가 마츠키 상의 태양이라면서요. (조금 고개를 기울인다.) 그렇다면 해바라기가 저를 보고 있는 것도 이상하지 않겠군요. 그 말은 마음에 드니 그냥 그렇게 해두겠습니다.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 12일 오전 02:57</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(문이 열리자 안쪽을 천천히 둘러본다. 여러 식물과 화분에 시선이 머물다가 당신에게 돌아온다. 여전히 잡고 있던 손은 먼저 놓지 않는다.) ……누추하다니요. 저는 좋은데요. 마츠키 상답기도 하고요. 무엇보다 사람이 사는 집 같아서 좋습니다. (다시 당신과 시선을 맞춘다.) 제 집은 마츠키 상과는 딱 반대거든요. 필요한 것만 두고 살다 보니 꽤 삭막한 편이라서요. 이렇게 꽃이며 화분이며 잔뜩 놓여 있는 집을 보고 있으니 조금 신기하군요.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 12일 오전 02:57</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">...그래, 욕심내줘. 그렇게라도 형이 평범한 시민이 될 수만 있다면야... 무슨 말이든 해줄테니까. 내가 약속했잖아. 그으... 구원 해주겠다고. 그러니까, 그러니까... 좀만 더 욕심내줘. 옛날보다 더욱... (제 목걸이 바라보는 시선에 저도 한 번 더 바라보고) ...그러면 싫나? 내 흔적 달고 다니는거. 그리고 아직 목걸이는 나만 차고 있는데. ...아닌가, 디자인은 달라도 같은 십자가 목걸이니까... 이건 형의 흔적 같은데. 내 흔적보다는. 안 그래? ...나도 모르는 새에 흔적을 새겼네. (작게 웃는다.) ...반지 하나 정도는 괜찮잖아. 거추장스럽지도 않고... ...그리고 먼저 달라고 한 주제에. (혹여나 흔적을 많이 달고 다니는게 싫다는 대답이 돌아올까 싶어 찌질하게 뒤끝있는 말이나 중얼거린다.) ...뭐 얼마나 어려운 걸 부탁하려고?? ...역시 난 맨날 형한테 휘둘리는 기분이라니까... 옛날부터. 어차피 부탁 전부 들어주기로 한 거, 도망가거나 보내주는 거 말고는 들어줄테니까. 어떻게든... 적응 해볼게. 형 버릇에 내가 맞춰가야한다니... 내가 들인 버릇이니까 책임져야지, 응... (작게 웃는 모습에 뜨끔) ...부, 부끄럽게 뭘 또 말해... ...태양, 태양이 싫으면 달이라도... ...하아... 됐다... (한숨 푹 내쉬고) ...그, 그럼 형도 내가 태양인걸로 해. 백합도... 해를 보고 고개가 기울으니까. ...시, 싫으면 말고... (항상 당당하게 이야기해놓고 부끄러움에 뒷말은 자신이 없어진다.) ...아- 정말... 왜 형 앞에서는 맨날 이렇게 다 꼬여버리는지 모르겠단 말야...</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 12일 오전 03:45</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(손을 놓을까 조바심이 났지만, 아직까지 잡혀있는 손에 조금 안도한다. 마찬가지로 저도 놓지 않고) ...정말? 근데 우리 집보다는 훨씬 넓을 것 같은데. ...원룸이라 잘 곳도 마땅치 않고... ...보다시피 그냥 바닥에서 이불깔고 자거나, 쇼파에서 자거든. ...그나저나 장갑... 안 벗어도 되나. (쇼파 앞까지 걸어오다 멈추고 깍지낀 손을 내려다본다. 거리 좁혀지면 모르는 척 시선 옆으로 돌려 애먼 식물이나 빤히 쳐다본다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 12일 오전 03:45</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(조금 더 욕심내라는 말에는 잠시 당신을 바라본다. 몇 번이나 비슷한 말을 들은 탓인지 이번에는 굳이 사양하지 않고 작게 웃는다.) ……마츠키 상께서 그렇게까지 말씀하시니 슬슬 정말 그래도 되는 건가 싶군요. 나중에 제가 생각보다 욕심이 많다고 후회하셔도 소용없습니다. 어디까지 받아주실 수 있을지, 저도 조금 궁금해졌고요. (흔적에 대한 말에는 잠시 당신의 목가로 시선이 향한다.) 하하, 그렇다면 앞으로도 제게 흔적을 더 남겨주시죠. 그리고 저도……. (짧은 침묵. 욕심을 내도 된다고 했으니, 이 정도는 괜찮겠지.) 마츠키 상에게 제 흔적을 조금 더 남기고 싶습니다. 어려운 부탁은……. (잠시 생각하다 고개를 기울인다.) 아직 정하지 않았습니다. 이렇게 전부 들어주시겠다고 자신 있게 말씀하시는데, 벌써부터 하나씩 써버리기는 아깝지 않습니까. 천천히 생각해두죠. 무엇부터 부탁드리면 좋을지. (이번에는 자신도 태양으로 하자는 말에 잠시 눈을 깜빡인다. 횡설수설하는 모습을 지켜보다 결국 작게 웃는다.) ……서로의 태양이라. 생각보다 꽤 낯간지러운 이야기가 되어버렸군요. (맞잡은 손에 살짝 힘을 준다.) 그래도 싫지는 않습니다. 무엇보다 이런 이야기를 해놓고 부끄러워하시는 마츠키 상을 보는 것도 상당히 즐겁고요. (즐거운 기색을 숨길 생각도 없이 웃는다. 그리고는 집 안을 다시 한번 천천히 둘러본다.) 넓은 건 맞습니다만, 그렇다고 이곳보다 좋은 집이라는 뜻은 아닙니다. 제 집에는 정말 필요한 것밖에 없어서 말입니다. 이렇게 화분을 돌보고, 돌아오면 이불을 펴고 잠들고……. 그런 생활의 흔적이 보이는 게 저는 오히려 좋군요. (당신에게 시선을 돌린다.) 마츠키 상께서 여기서 어떻게 지내셨는지가 조금은 눈에 보이는 것 같지 않습니까. 나중에 기회가 된다면 제 집에도 한 번 초대하겠습니다.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 12일 오후 08:34</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(장갑 이야기에 맞잡은 손으로 시선이 떨어진다. 잠시 깍지를 느슨하게 풀어내면서도 손은 놓지 않는다. 엄지로 하얀 장갑의 끝자락을 천천히 벌려 그 안으로 밀어 넣는다. 검은 가죽이 맨손바닥에 맞닿자, 그 위를 느릿하게 한 번 쓸어본다. 그대로 가까이 맞닿은 손을 내려다보다가 천천히 시선을 들어 당신을 바라본다.) ……벗겨드릴까요, 마츠키 상?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 12일 오후 08:34</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">나도 내가 어디까지 받아줄 수 있을지... 모르겠네. ...아픈 건 싫으니까, 적당히. ...때리는 건 안 돼. 야쿠자들은 이유를 모르겠는데, 계속 때리려고 든다니까. (제 목덜미 손으로 쓸고) ...그, 그럼... 마음껏 흔적... 남겨. ...어느 쪽이든. 뭐든... 흔적, 받아줄...테니까. (머뭇머뭇.. 쑥쓰러운지 말 더듬거리며 달아오른 제 뺨 긁적인다.) 나야말로 기대하고 있으면 되나. 어떤 흔적을 남겨줄지. (작게 웃는 모습에 팔꿈치로 살짝 친다. 부끄러우니까 그만 웃으라는 뜻... 손 더 세게 잡히면 작게 숨 참는 소리가 들릴 것이다.) ...내가 부끄러워하는게 뭐가 보기 좋은데. ...바보같고... 그으.. ...좀 어린녀석 처럼 보이고. ...이런 모습 보는게 재밌어? 그래서, 서로의 태양... 해줄 거야? ...안 해줄 거야? (힐끔.. 힐끔... 계속 눈치본다. 거절당할까 안절부절한 모습) ...그래? 좀 너저분하게 보일까봐 걱정했는데. 원래 부잣집이나, 좋은 곳 사는 사람들은 이런 거 별로 안 좋아할 줄 알았어. ...얼마나 좋은 곳 사나 꼭 구경가고 싶네. 응, 꼭 초대해줘. 집에 와인 창고라던가, 술 창고 같은 거 있어? 잘 사는 사람들은 그런 거 있던데. (제 맨 손에 닿는 매끈한 가죽 장갑 촉감에 숨 참는 소리와 함께 움찔거린다. 올라오는 시선에 저도 시선 따라가며, 서로 마주치면 발개진 얼굴로 멍하니 쳐다보고) ...뭐? (집에 들어오며 벗은 모자를 바닥에 툭 떨구고) ......으응.. 버... ...벗겨줘. ........(그리 말하며 맞잡힌 손만 빤히 응시한다. 다른 생각이나 해야지... 다른 생각... 그럼에도 올라오는 부끄러운 감정에 다른 손으로 제 하관 가리고 시선만 두리번거린다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 12일 오후 11:13</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">....근데, 장갑... 얘기 맞지? (그리 말하며 주머니에서 더듬거리며 열쇠 꺼내고는 낮은 탁상에 떨구듯 올려둔다. 침 꿀꺽 삼키고는 열 오르는 느낌에 눈 질끈 감는다. 불이 꺼졌음에도 아마 달아오른 모습이 잘 보일 것이다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 12일 오후 11:14</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">그건 걱정하지 않으셔도 됩니다. 마츠키 상을 아프게 해서 남기는 흔적은 저도 별로 원하지 않으니까요. (당신이 쓸어내린 목덜미로 잠시 시선이 향했다가 돌아온다.) 그럼 아픈 것만 아니라면 무엇이든 괜찮다는 뜻으로 알아듣겠습니다. 기대에 부응할 수 있도록 노력해보죠. 어떤 흔적을 남길지는…… 기대하고 계십시오. (팔꿈치로 슬쩍 얻어맞고도 웃음은 좀처럼 가라앉지 않는다.) 바보 같지도, 어린아이 같지도 않습니다. 평소에는 그렇게 당당하시면서 이런 이야기를 할 때만 금방 얼굴이 빨개지는 게……. (달아오른 뺨을 잠시 바라본다.) 귀엽기도 하고, 저한테 이런 모습을 보여주시는 게 좋기도 합니다. 그러니 조금 더 보고 싶어지는 거겠죠. (계속해서 제 눈치를 보는 모습에는 결국 맞잡은 손에 조금 더 힘을 준다.) ……네. 해드리겠습니다. 서로의 태양. 마츠키 상께서 제 태양이 되어주신다면 저도 마츠키 상의 태양이 되어드리죠. (옅게 웃는다.) 그렇게 불안하게 쳐다보지 않으셔도 됩니다. 이건 거절할 생각 없으니까요. …… 제가 태생부터 부자였던 것도 아니고, 주변 사람이나 다른 간부들과 비교하면 지금도 꽤 소박하게 사는 편입니다. 그러니 마츠키 상의 집이 너저분하다는 생각은 전혀 하지 않았습니다. (술 창고 이야기에 작게 웃는다.) 그리고 아쉽게도 그런 건 없습니다. 제가 술을 마시지 않는데 술 창고가 있어봐야 쓸모가 없지 않습니까. 다만 마츠키 상께서 좋아하신다면 몇 병쯤 들여놓는 건 나쁘지 않겠군요.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 13일 오후 06:58</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(작게 떨어진 허락에 엄지가 그대로 손목 안쪽을 타고 천천히 움직인다. 흰 천이 밀려나며 드러나는 맨손을 검은 가죽이 줄곧 따라붙는다. 중간중간 작게 움찔하는 움직임이 느껴질 때마다 손이 잠시 멎었다가, 이내 다시 느릿하게 움직인다. 탁자 위로 열쇠가 떨어지는 작은 소리가 들려도 그쪽으로는 눈길조차 주지 않는다. 대신 손에 가려진 하관이며, 붉게 달아오른 당신의 얼굴을 천천히 눈에 담는다. 벗겨낸 장갑은 아무렇게나 옆에 내려두고, 비어버린 손에는 곧바로 자신의 손가락을 얽는다. 맨살과 검은 가죽이 맞닿은 채 조금 전보다 깊게 깍지를 고쳐 낀다.) ……됐습니다. (그 상태로 한동안 말없이 바라보다 천천히 입꼬리를 올리고는 상체를 조금 기울여 당신에게 가까이 다가간다. 목소리가 바로 닿을 만큼 귀 가까이에 입술을 가져간 채 낮게 속삭인다.) ……혹시 다른 걸 기대하셨습니까, 마츠키 상?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 13일 오후 06:58</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">...내가 기대하는 쪽으로 흘러가는 거야? 그래, 어떤 흔적을 남길지... 기대하고 있을게. (조금 긴장된다. 대체 어떤 흔적을 남기려고...) ...귀엽다고 하지 마. 다 큰 성인인데 귀엽다니... ...이상하게 형 앞에서만 잘 휘둘려서.. 부끄럼을 많이 타게 된단 말이야. 그러니까 일부러 보여주고 싶어서 그, 그런건 아니라고... ........형은 부끄럼 하나 없어보이고. 진짜 신기하네. ...뭐, 그런 낯간지런 말을 한 적도 없고, 해본 적도 없어서 그런거겠지만. (맞잡은 손에 힘 더 들어가면 작게 움찔) 서로가 태양이면 꽃은 누가 해준담. 그래도 괜찮네. 하늘에 태양이 두 개나 떠있으면 훨씬 밝아지겠지. 대신 태양이 하나라도 사라져버린다면 꽃 하나가 시들어서 죽어버릴지도 모르겠군. (어라...) ...뭐? 아니, 안 마시는데 굳이 나 때문에 들여놓을 필요는 없는데... ...그래서, 언제 찾아가면 되는거지? (나름 비싼 술을 맛보고 싶기는 했었다...) 잘 사는 사람들은 어떤 집들이 선물을 좋아하려나... 역시 나답게 꽃 한 바구니나 들고가는게 좋을까. 아, 집들이 선물로 반지를... ...(중얼중얼, 못 들은 척 해주는 쪽이 더욱 재밌을 것이다.) 나도 꽤 소박하게 사는 걸 즐기나봐. 버는 돈은 웬만해선 기부하고, 남은 돈으로 생활을 하거든. 애초에 월급이 그렇게 많은 것도 아니지만. 거의 순경 수준으로 일을 하니 돈도 경부보보다 조금 더 못 받지. 근데 난 이게 더 좋네. 위험한 일은 딱 질색이더라고... ...쨌든, 벌이가 수수하다보니 집도 수수한 편이고 좁아서 남들을 잘 안 데려오는데... 어쩌다보니 데리고 와버렸네. 우리집에 온 몇 안 되는 손님 중 하나가 된 걸 축하해. (농조로 이야기한다. 물론 말이 끝나자마자 다시 긴장하느라 헛기침으로 모마시키지만.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 13일 오후 10:11</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(장갑의 부드러운 천이 제 손바닥을 간지럽히면 제 발 끝 오므리고, 느릿하게 밀려들어오는 가죽 장갑의 촉감에 저도 모르게 헉, 하고 작은 소리를 냈을 것이다. 제 얼굴을 빤히 바라보는 탓에 부끄러워 숨고싶은 마음만 떠다니고, 애써 외면하기 위해 눈이나 질끈 감아버린다. 장갑이 떨어지고 나면 그 쪽으로 시선 흘러가다 제 얼굴과 가까이 다가오면 혹여나 닿을까 급하게 경직되어서는 멀뚱히 서있고. 속삭이는 소리가 제 귀를 스칠 때 마다 귓가까지 발갛게 달아올라 아마 붉게 달아오르지 않은 피부가 없을 만큼 발개졌을 것이다.) ........기, 기대한 거 아... 아냐... ...그, 그냥 주어가... 없, 없... 없으니까.......... ...나, 난 장갑.. 그렇게 못 벗겨주는데... (해본 적이 없어서...) ..........근데... (잠시 침묵하다 당신의 목덜미에 뜨거워진 제 얼굴 파묻으며 웅얼거린다.) ...다른 걸 기대했다고 하면... 어떡하려고?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 13일 오후 10:11</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(귀엽다고 하지 말라는 항변에는 대답 대신 달아오른 얼굴을 한동안 바라본다. 굳이 부정해줄 생각은 없는 듯 입가에 옅은 웃음만 남는다.) 다 큰 성인이어도 제게는 동생 아닙니까. 그리고 저한테만 이렇게 휘둘리신다면서요. (달아오른 얼굴을 빤히 바라보다 작게 웃는다.) 그런 말씀까지 해놓고 귀엽게 보지 말라고 하시는 건 조금 무리한 부탁 같습니다만. (태양 하나가 사라지면 다른 꽃도 시들 거라는 말에는 웃음이 조금 옅어진다. 맞잡은 손에 천천히 힘을 준다.) ……그렇다면 둘 다 오래 떠 있어야겠군요. 하나가 먼저 사라져서 다른 하나까지 시들게 만들면 곤란하지 않습니까. 서로의 태양이 되자고 먼저 말씀하셨으니, 마츠키 상도 쉽게 사라지시면 안 됩니다. 제 집에는 언제든 오셔도 됩니다. 미리 연락만……. (말하다 문득 무언가 떠올랐는지 잠시 멈춘다.) 그러고 보니 제 연락처부터 알려드려야겠군요. 나중에 번호 드리겠습니다. 자주 바꾸는 편이라 언제까지 쓸지는 모르겠습니다만. (몇 안 되는 손님이라는 말에는 집 안을 한번 둘러보다가 당신에게 시선을 돌린다.) 그건 제법 기분 좋은 이야기군요. 집들이 선물은……. (무언가 중얼거리던 것을 들은 듯하면서도 모르는 척 웃는다.) 네, 저는 마츠키 상만 오셔도 충분합니다.<br>괜찮습니다. 마츠키 상은 그냥 가만히 있어도 됩니다. (손끝에 닿는 미세한 떨림이며, 작게 삼켜지는 숨까지 잠자코 느낀다. 마침내 제 목덜미에 뜨거운 얼굴이 파묻히자 아주 잠깐 눈을 깜빡인다. 곧 맞잡은 손가락을 조금 더 깊게 얽고, 빈손으로는 당신의 뒷머리를 느릿하게 쓸어내린다. 손길은 머리카락을 따라 천천히 아래로 미끄러져 목덜미에 닿아 잠시 머문다. 그곳을 손끝으로 가볍게 쓸어내리며 낮게 웃는다.) 저는 마츠키 상의 기대를 충족시켜드리고 싶습니다. 그러니……. (머물러 있던 손길이 다시 느릿하게 아래로 향한다. 서두를 생각은 없는 듯 천천히 등을 쓸어내리며 귓가 가까이 낮게 덧붙인다.) 무엇을 기대하셨는지만 솔직하게 말씀해주시겠습니까?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 14일 오전 12:57</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(계속해서 제 얼굴 바라보는 모습에 아예 보지 말라는 듯 얼굴을 잡지 않은 손으로 제 얼굴 가린다.) ...형한테만 휘둘리는게 좋아? ...이것도 나름 특별취급... 그렇게 생각하는 거야? ...그런 거 아닌데. 해주려면, 다른 특별취급...으로 해줄 수 있을텐데... (고개 천천히 끄덕이며) ...응, 서로. 서로 사라지지 말자. ..아, 연락처... ...왜 자주 바꾸는데? 안 바꾸면 무슨 일이라도 생기는건가...? 추적, 그런거...? ...쨌든, 꼭 연락처 알려줘야 해. 근데... 연락처 받기 전까지는 어떻게 해야되지? 계속 붙어다녀야.. 되나? 나야 뭐, 상관 없지만... ...경찰이랑 계속 붙어있으면 연행되는 느낌이라도 들 것 같은데. (웃는 소리에 그제서야 중얼거리는 소리 멈추고는 마주본다.) ...아. ...아냐, 그래도. 누구 집에 가는데, 선물 정도는 들고 가야지. 형이랑 가장 어울리는 선물로 갖고 갈테니까.. ....기대만 좀 해줬으면 좋겠네.<br>(목덜미를 간지럽히는 손길에 입 틀어막으며 등까지 내려가면 저도 모르게 신음한다. 잠시 정적 흐르다 이내 머뭇거리며 머리를 부비적거리더니 작게 웅얼거리며) ...그, 그냥... .....아, 안아주거나... .....그럴 줄 알았는, 알았는데... (이내 고개 들고는 시선 마주한다. 동백꽃만큼 달아오른 얼굴로) ........사, 사실은... ...이, 입이라도 맞춰주는 줄 알고.. .......있었, 는데. .....그, 그리고 그런... 그런 것도 할.. 할 줄 알고... ....아, 아까 오는 내내 기, 기.. 긴장해서.. .....가, 갑자기 벗, 벗겨주냐고 하니까... (덜덜 떨리는 목소리로 제대로 된 문장도 말 하지 못하며 어버버거린다. 스스로가 너무 바보같이 느껴져 잡은 손에 힘이 들어갔다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 14일 오전 01:52</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(얼굴을 가리는 손을 바라보다 작게 웃는다.) ……네. 저는 마츠키 상이 저한테만 이렇게 휘둘리셨으면 좋겠습니다. ……다른 특별취급이라면 어떤 걸 말씀하시는 겁니까? (서로 사라지지 말자는 말에는 천천히 고개를 끄덕인다.) ……네. 그러죠. 저는 원래 흔적을 오래 남겨두는 편이 아닙니다. 연락처도 마찬가지고요. 아무래도 하는 일이 하는 일인지라 하나를 오래 쓰면 곤란해질 때가 있어서요. (잠시 생각하다 맞잡은 손을 가볍게 움직인다.) 그러니 새 연락처를 알려드리기 전까지는…… 그냥 마츠키 상 곁에 있겠습니다. (집들이 선물 이야기에 입가에 옅은 웃음이 번진다.) ……기대하겠습니다. 아니, 사실은 이미 기대하고 있습니다. 마츠키 상께서 저와 가장 어울리는 선물로 골라오신다니 궁금하지 않을 수가 없지 않습니까. (당신을 바라보며 싱긋 웃는다.) 그러니 가능하면 그날이 빨리 왔으면 좋겠군요.<br>(더듬거리며 이어지는 말을 재촉하지 않고 끝까지 듣는다. 맞잡은 손에 힘이 들어가는 것을 느끼면서도 말없이 붉게 달아오른 얼굴을 바라본다. 이윽고 비스듬히 기운 시선으로 천천히 얼굴을 훑는다. 등을 쓸던 손이 올라와 귀 아래를 스치고, 턱을 감싸 받친 채 제 쪽으로 가볍게 끌어당긴다. 그보다도 느린 속도로 거리를 좁혀 입술을 맞댄다. 입술이 겹쳐진 뒤에도 시선은 좀처럼 떨어지지 않고 가까운 거리에서 반응을 하나하나 살피듯 눈을 맞춘 채 몇 번 느릿하게 입술을 겹친다. 이내 젖은 입술을 살짝 벌려 당신의 아랫입술을 깨문다. 곧바로 놓아주지 않고 가볍게 문 채 머문다. 그 사이 미세하게 달라지는 표정과 숨결, 맞잡은 손에 들어가는 힘까지 확인하듯 가만히 눈에 담는다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 16일 오후 09:44</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">.....걱정 할 거 없겠네. 어차피 이미 형한테만... 휘둘리고 있으니까. ...다, 다른 특별 취급? 그냥 뭐... ...좀 더 친밀하고, 가깝고... 그런 취급 있잖아. 그냥, 특별하다고 느낄 수 있는 취급. 특별해진다는 기분이 드는... (그저 말꼬리만 늘인다.) ...뭐? 정말? 우, 우리 집에 있으려고? 아니면 내가 가야하나...? (오히려 이쪽이 당황해서는 멍한 표정으로 눈만 꿈뻑거리고) ...응, 빨리 그 날이 오면 좋겠다. 기다리고 있어. 내 선물.<br>(내리깐 시선이 턱을 잡으면 다시 올라간다. 이내 입술이 겹쳐지면 눈 크게 뜨고는 어벙한 표정 짓는다. 계속해서 맞춰지는 시선에 다시 눈 질끈 감아버리고는 묶이지 않은 다른 손을 덜덜 떨며 당신의 허리춤에 올려놓고, 옷자락을 붙잡는다. 벌리면 벌리는대로 입 벌리고는 저도 한 번 아랫입술을 물었다 놓는다. 가까이서 닿는 숨결에 저도 모르게 소리내고는 점점 달아오르는 호흡 숨길 생각 못 한다. 이쯤 되면 눈 떠도 되려나 싶어 천천히 눈꺼풀 열면 마주하는 시선에 움찔, 작게 몸 떨린다.) 하아... 하... ........형... ........(떨어져있는 당신의 입술로 시선 옮기고는 다시 도장 찍듯 꾸욱 맞대며 숨 참는다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 17일 오전 12:48</div>
+  </div>
+  <script src="../search.js"></script>
+  <script src="../manifest.js"></script>
+  <script src="../theme.js"></script>
+</body>
+</html>
