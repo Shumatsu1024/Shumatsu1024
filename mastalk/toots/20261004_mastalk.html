@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>20260930</title>
+  <script id="enty-theme-boot">
+    (function () {
+      var root = document.documentElement;
+      function readable(hex) {
+        var f = function (i) {
+          var v = parseInt(hex.substr(i, 2), 16) / 255;
+          return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+        };
+        var L = 0.2126 * f(1) + 0.7152 * f(3) + 0.0722 * f(5);
+        return 1.05 / (L + 0.05) >= (L + 0.05) / 0.0567 ? "#ffffff" : "#0d141d";
+      }
+      try {
+        var hash = (location.hash.match(/theme=([^&]+)/) || [])[1];
+        var raw = hash
+          ? atob(decodeURIComponent(hash))
+          : localStorage.getItem("enty-theme") || "{}";
+        var state = JSON.parse(raw) || {};
+        var mode = state.mode || "auto";
+        if (mode === "auto") {
+          mode = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        root.setAttribute("data-theme", mode);
+        var custom = (state.custom || {})[mode] || {};
+        for (var key in custom) {
+          if (!/^#[0-9a-f]{6}$/i.test(custom[key])) continue;
+          root.style.setProperty("--accent-" + key, custom[key]);
+          if (key === "char1" || key === "char2") {
+            root.style.setProperty("--on-" + key, readable(custom[key]));
+          }
+        }
+      } catch (e) {
+      }
+      try {
+        var saved = JSON.parse(localStorage.getItem("enty-avatars") || "{}");
+        var rules = "";
+        var accounts = {"char1":"@shuu","char2":"@RU_22"};
+        for (var name in accounts) {
+          var gen = root.getAttribute("data-gen-" + name);
+          var url = gen && saved[name + ":" + gen];
+          if (!url || url.slice(0, 11) !== "data:image/") continue;
+          var at = '.ttobot-status[data-account="' + accounts[name] + '"] .ttobot-avatar';
+          rules += at + '{background-image:url("' + url + '");background-size:cover;background-position:center}';
+          rules += at + " img{visibility:hidden}";
+        }
+        if (rules) {
+          var style = document.createElement("style");
+          style.id = "enty-avatar-style";
+          style.textContent = rules;
+          document.head.appendChild(style);
+        }
+      } catch (e) {
+      }
+      try {
+        if (window.self !== window.top) root.classList.add("in-pane");
+      } catch (e) {
+        root.classList.add("in-pane");
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../style/ttobot.css">
+</head>
+<body>
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">마츠키 군, 도망갈 준비는 되셨습니까?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 4일 오후 10:15</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">물건을 사러 가는 게 아니고? (농조)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 4일 오후 10:50</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">아, 들켰습니까? (뻔뻔하게 웃는다.) 사실 도망가기 전 예행연습입니다. 어디로 도망갈지도 모르는데 주변 지리부터 잘 알아둬야죠. 그러니 오늘은 마츠키 군과 열심히 돌아다녀봐야겠습니다.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 4일 오후 11:25</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">생각보다도 더 도망가고 싶었나보네. 응, 같이 알아볼까... 그럼 돈은 어떻게 하지? 사고 싶은거라도 있어? 아니면 뭐... 증표라도 새로 맞춰볼까. 여유가 있다면 말이지... 뭐, 아껴두고 싶다면 저축하는 걸로 하자.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 4일 오후 11:34</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">돈은 제가 선생님 지갑에서 훔쳤습니다. (아니다.) 사고 싶은 거라……. 리본이나 끈 같은 걸 하나 사고 싶네요. 그리고 증표 맞추는 것도 좋습니다. 저축은 괜찮아요. 야금야금 모아둔 돈이 좀 있거든요. 오늘은 그냥 이걸로 하고 싶은 거 하죠, 마츠키 군.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 4일 오후 11:53</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">...뭐?? 그래도 되는 거야...? (믿는다...) 그러자. 어차피 나도 뭔가 사갈 생각은 안 하고 있었어. 그냥... 같이 다닐 사람이랑 노는데에 다 써보고 싶었달까. 그나저나 리본이나 끈은 왜? 뭔가 묶을거라도 필요한거야?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 5일 오전 12:08</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">당연하죠. 선생님들 지갑은 뭐……. (잠시 침묵하고는 발걸음을 천천히 옮긴다.) 네, 아무튼 제 계획에 끈이 좀 필요해서, 마침 하나 살까 싶었거든요. (태연하게 말을 돌린다.) 그럼 마츠키 군, 따로 살 게 없으시면 먹고 싶은 건 없습니까?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 5일 오전 12:24</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">무슨 계획을 세우고 있길래...? ...나랑 관련된 일이라면 나중에라도 꼭 말 해줘야 해. 알겠지? (미심쩍다는 표정으로 계속해서 바라보다가) ...딱히. 먹고 싶은 건 모르겠어. 계속해서 간직할 수 있는 무언가를 갖고 싶달까. 먹는 건 금방 사라지잖아. 아니면 의미가 있는 것도 좋겠네. 이왕 받은 돈인데, 거창한 이유대로 써보고 싶네.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 5일 오전 12:32</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">당연하죠. 나중에 끈을 사고 나면 자연스럽게 알게 되실 겁니다. (어딘가 꿍꿍이가 있는 듯 웃는다.) 그럼 오히려 잘됐네요. 뭘 살지 미리 정하지 말고 돌아다니면서 찾아보죠. (주변 상점들을 슬쩍 둘러본다.) 마츠키 군이 보고서 ‘이건 오래 가지고 싶다.’는 생각이 드는 걸로요. 어느 가게부터 가볼까요?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 5일 오전 12:48</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(꿍꿍이 있어보이는 표정에 고개 기울...) 오래 가지고 싶다라... 꽃 향수가 좀 갖고 싶긴 한데, 그건 이 용돈으로 절대 못 사겠지. (한숨) 꽃이 있는 아이템이면 좋을 것 같아. 꽃이 들어있는 가짜 보석이라던가, 아니면 꽃이 새겨져있는 반지라던가... 아니면 서로에게 어울리는 걸 사주는 것도 재밌겠다.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 5일 오전 01:01</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">꽃 향수는 다음에 돈을 더 모아서 사는 걸로 하죠. (말해준 것들을 하나씩 생각해보다가 마지막 말에 고개를 끄덕인다.) 서로에게 어울리는 걸 골라주는 게 재미있겠네요. 그걸로 할까요? 뭘 골랐는지는 서로 살 때까지 비밀로 하고요. (주변 가게들을 둘러보다가 당신을 바라본다.) 그런데 이럴 거면 잠깐 따로 돌아다니면서 물건을 골라오는 게 좋으려나요? 같이 다니면 금방 들킬 것 같은데요.</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 5일 오전 02:01</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">아, 그러는게 좋긴 하겠다. 애초에 비밀로 해야하니까... 따로 다니는게 재밌을 것 같네. 근데 그러다가 형이 날 잃어버리면 어떡하지... (물론 미아가 되는건 이쪽이겠지만...) 만날 가게를 정해두고 다시 모이는 걸로 해도 좋을 것 같아. 그럼 끈이랑 내 선물을 형이 사오는거고, 난 형의 선물만 사면 되는 거고. 맞아?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 5일 오전 02:09</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">네, 저는 끈이랑 마츠키 군 선물을 사고, 마츠키 군은 제 선물을 고르는 걸로 하죠. (고개를 끄덕이다가 조금 웃는다.) 맞아요…… 제가, 네? 제가 마츠키 군을 잃어버리는 겁니까? 반대가 아니라요? (눈을 동그랗게 뜨고 빤히 바라본다.) 그럼 다시 만날 곳부터 정해두죠. 여기서 다시 만날까요? 이곳으로 돌아오는 정도는 길 안 잃고 하실 수 있죠, 마츠키 군? (묘하게 걱정스러운 눈으로 바라본다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 5일 오전 03:19</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(빤히 쳐다보면 괜히 눈 빠르게 피한다. 뜨끔...) ...다, 당연하지. 내가 누군데 길을 잃어. (재빨리 간판에 써있는 글씨 읽는다... 외우려는 셈.) 여기에서... 으음... 한 시간 내로 다시 만나는 걸로 할까? 너무 오랫동안 흩어져있으면 정말 엇갈려버릴지도 모를 것 같아서... (그리고 선물로 뭘 고를지 궁금해서 빨리 만나고 싶기도 하고...)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 5일 오전 03:32</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">한 시간이면 충분하겠네요. 그럼 정확히 한 시간 뒤에 여기서 만나는 걸로 하죠. (간판을 열심히 읽는 모습을 빤히 바라보다가 슬쩍 웃는다.) 그런데 정말 길을 안 잃으실 분이 간판은 왜 그렇게 열심히 외우고 계십니까? 뭐, 혹시 늦으셔도 제가 기다리고 있을 테니 너무 걱정하지 마세요. (잠시 주변을 둘러보다 다시 당신을 본다.) 그럼 이제 정말 따로 가볼까요? 마츠키 군이 뭘 골라오실지 기대하고 있겠습니다. (그렇게 말하고는 먼저 가라는 듯 가볍게 손을 흔든다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 5일 오후 03:13</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(뜨끔...) 호, 혹시 헷갈릴 수도 있으니까 읽어두는거야. 쨌든 알겠어. 조금 이따가 보자... (손을 흔드는 모습에 저도 작게 흔들며 거리를 노닌다. 이내 무엇이 좋을까 고민하다 잡화점 근처를 서성이더니 안으로 들어가 아기자기한 것들을 구경한다. 오르골, 작은 인형... 턱없이 부족한 용돈 탓에 골머리를 썩이던 중 나름 괜찮아보이는 것을 발견해서는 조금 들뜬 발걸음으로 선물과 함께 거리로 나선다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 5일 오후 05:20</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(멀어지는 당신의 뒷모습을 한동안 지켜보다가, 모습이 완전히 보이지 않게 되고서야 천천히 반대편으로 걸음을 옮긴다. 우선 처음부터 사려고 했던 끈을 사고, 이번에는 당신에게 어울릴 만한 것을 찾아 잡화점들을 기웃거린다. 진열된 물건들을 하나하나 살펴보다가 문득 하나 앞에서 걸음을 멈춘다.) ……이거라면 좋아하시려나요. (한참 고민한 끝에 선물까지 사고 나니 약속한 시간이 제법 가까워져 있었다. 작은 봉투들을 챙겨 들고 약속 장소로 돌아와 주변을 두리번거린다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 5일 오후 06:45</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(혹여나 주머니에 넣으면 구겨질까 조심히 쥔 채로 주변을 서성인다. 길을 좀 헤메느라 약속 장소에 좀 늦는 듯 싶고, 저만치서 안절부절하다 이내 익숙한 얼굴이 보이자 그제서야 안도의 한숨 푹 내쉬고는 당신에게 다가간다. 등 뒤에 산 것을 숨기는 것은 잊지 않고) 하아... 하... ...조, 조금 늦었네. (한 10분 정도 늦었으려나...) 사려던건 다 샀어?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 5일 오후 08:18</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(저만치서 안절부절못하는 모습을 발견하고는 가만히 바라보다가, 가까이 다가온 당신에게 싱긋 웃는다.) ……길 안 잃으실 수 있다고 하셨던 것 같은데요, 마츠키 군. 그래도 무사히 돌아오셨으니 다행입니다. 생각보다 빨리 찾으셨네요. (놀리듯 말하면서도 안도한 듯 작게 웃는다.) 네, 저는 사려던 건 전부 샀어요. 끈도 사고, 마츠키 군 선물도 골랐습니다. (손에 든 작은 봉투와 상자를 살짝 들어 보이다가 문득 당신의 등 뒤로 시선이 향한다.) 마츠키 군도 다 사신 모양이네요. 그렇게 열심히 뒤에 숨기고 계신 걸 보면요. (무엇을 숨기고 있는지 궁금한 듯 당신의 등 뒤를 빤히 바라본다.)</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 5일 오후 09:54</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">....이, 이정도면 안 잃은거지... 흥. (부끄..) 잠시 뭐... 더 살게 없나 둘러봤을 뿐이라고. (대충 변명하고는 넘어간다. 그러다 제 등 뒤를 바라보는 시선이 느껴지면 움찔, 더 꽁꽁 숨기려 뒤로 더 감추고 제 시선 옆으로 데굴 굴린다.) 아... ...(솔직히 마음에 들어할지 모르겠어서 망설임이 생긴다. 지금이라도 다른 걸로 같이 사러 가자고 해야하나... 머리는 그리 고민하지만 이미 손은 내밀어진지 오래다. 종이 봉투를 내밀고 손 덜덜 떤다. 남이 뭘 좋아할지 한참 고민해서 골랐다는 사실이 민망하고 조금 쑥쓰러워 얼굴 붉히고는) 그, 그으... 어울.. 릴 것 같아서 샀는데... ...평소에 차고 다니면 예쁠 것 같아서. (손바닥만한 조그마한 종이 봉투 안에는 팔찌가 들어있다.)</div>
+    <div class="ttobot-media"><img src="https://janhwa.site/system/media_attachments/files/117/388/573/599/737/431/original/5e14255e6884aee2.jpg" alt="첨부 이미지" /></div>
+  </div>
+  <div class="ttobot-time">2026년 10월 5일 오후 10:38</div>
+  </div>
+
+<div class="ttobot-status" data-account="@shuu">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/607/983/229/335/original/4c298cf71ccdc0fb.png" alt="profile" /></div>
+    <div class="ttobot-name">후지사키 슈지</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(내밀어진 종이 봉투와 떨리는 손을 번갈아 바라보다가 조금 의외라는 듯 눈을 깜빡인다. 이내 조심스럽게 받아 안을 확인하고는 팔찌를 들어 올린다.) ……팔찌네요. 제가 평소에 차고 다니면 어울릴 것 같아서 고르신 겁니까? (붉어진 얼굴을 바라보다가 작게 웃는다.) 마음에 듭니다. 마츠키 군이 한참 고민해서 골라주신 거라서 더 마음에 들고요. (곧바로 손목에 팔찌를 차본 뒤 이리저리 돌려보며 살펴본다.) ……예쁘네요. 잘 어울립니까?(이번에는 자신이 사 온 상자를 당신에게 내민다. 작은 상자 안에는 노란색 코스모스 씨앗이 든 작은 봉투와, 조금 엉성한 세공의 붉은색 보석이 박힌 십자가 목걸이가 들어 있다.) 그럼 이건 제 선물입니다. ……마음에 드십니까, 마츠키 군?</div>
+    <div class="ttobot-media"><img src="https://janhwa.site/system/media_attachments/files/117/392/095/302/193/301/original/82b3e851b13e376c.png" alt="붉은 보석이 박힌 십자가 -지인 지원" /></div>
+  </div>
+  <div class="ttobot-time">2026년 10월 6일 오후 01:34</div>
+  </div>
+
+<div class="ttobot-status" data-account="@RU_22">
+  <div class="ttobot-avatar-wrapper">
+    <div class="ttobot-avatar"><img src="https://janhwa.site/system/accounts/avatars/117/349/570/635/611/760/original/4f14178961fc9475.png" alt="profile" /></div>
+    <div class="ttobot-name">마츠키 루이</div>
+  </div>
+  <div class="ttobot-content">
+    <div class="ttobot-content-text">(받아들면 중얼중얼, 마음에 안 들면 말고... 이러한 소리들이 작게 들릴 것이다. 이내 작게 웃는 모습에 중얼거리던 것 멈추고 고개 끄덕...) ...소, 손목에 차면 어울릴 것 같아서... 색 조합이라던가, 분위기라던가. (마음에 든다는 말에 안도의 한숨 내쉰다.) ...생각보다 잘 어울리네. 사실 고르느라 좀 늦기도... 했어. 안 어울리면 어쩌나 싶어서. (상자를 받아들고 안을 열어보면 놀란 눈을 뜬다.) ...씨앗? 코스모스 씨앗이네... 많은 꽃들 중에서 노란 코스모스인 이유가 있어? (씨앗 봉투를 꺼내고 십자가 목걸이 발견하면 우와, 작게 감탄하고는 꺼내 제 목에 걸어본다. 십자가를 잡아 반짝이는 보석을 빤히 바라보고) ....예쁘다. 아, 설마 전에 내가 십자가... 달라고 했던 것 때문에 사준 거야? 응, 엄청. ...엄청 마음에 들어. 거울은 없지만 어울리는 것 같아. 형이 보기에도 그래? (선물 받아 한껏 들뜬 모습은 영락 없는 어린아이다. 그렇게 어른스러워 할 땐 언제고...) ...저기, 고... ...고마워. 맨날 차고 다닐게... (뒤늦게 부끄러워하며 이야기한다.) ...아, 근데 리본 끈은? 샀어? 그래서 어디에 쓰는건데? 아직도 비밀인가...?</div>
+
+  </div>
+  <div class="ttobot-time">2026년 10월 6일 오후 05:17</div>
+  </div>
+  <script src="../search.js"></script>
+  <script src="../manifest.js"></script>
+  <script src="../theme.js"></script>
+</body>
+</html>
